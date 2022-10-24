@@ -35,7 +35,7 @@ use Opus\Common\Account;
 use Opus\Common\Config;
 use Opus\Common\JobInterface;
 use Opus\Common\Mail\SendMail;
-use Opus\Security\SecurityException;
+use Opus\Common\Security\SecurityException;
 use Zend_Log;
 
 use function implode;
