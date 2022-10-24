@@ -1,0 +1,38 @@
+name: PHP Composer
+
+on:
+  push:
+
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP 7.1
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.1'
+
+      - name: Install Composer and Dependencies
+        run: curl -s http://getcomposer.org/installer | php && php composer.phar self-update && php composer.phar install
+
+      - name: Start MySQL
+        run: sudo systemctl start mysql.service
+
+      - name: Prepare database
+        run: bash vendor/opus4-repo/framework/bin/prepare-database.sh --admin_pwd root --user_pwd root
+
+      - name: Prepare
+        run: ant prepare-workspace prepare-config lint -DdbUserPassword=root -DdbAdminPassword=root && export APPLICATION_PATH=. && php vendor/opus4-repo/framework/db/createdb.php
+
+      - name: Tests
+        run: php composer.phar test
+
+      - name: Coding Style
+        run: php composer.phar cs-check

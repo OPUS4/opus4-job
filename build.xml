@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="opus4-import">
+
+    <property environment="env" />
+    <property name="bindir" value="${basedir}/vendor/bin" />
+
+    <!-- Properties for configuration files (tests/config.ini) used for testing. -->
+    <property name="dbName" value="opusdb" />
+    <property name="dbUserName" value="opus4" />
+    <property name="dbUserPassword" value="" />
+    <property name="dbAdminName" value="opus4admin" />
+    <property name="dbAdminPassword" value="" />
+
+    <target name="clean">
+        <delete dir="${basedir}/build/logs" />
+        <delete dir="${basedir}/build/api" />
+        <delete dir="${basedir}/build/coverage" />
+        <delete dir="${basedir}/build/pdepend" />
+        <delete dir="${basedir}/build/code-browser" />
+        <delete includeEmptyDirs="true">
+            <fileset dir="${basedir}/build/workspace/cache" includes="**/*" />
+        </delete>
+        <delete includeEmptyDirs="true">
+            <fileset dir="${basedir}/build/workspace/tmp" includes="**/*" />
+        </delete>
+        <delete includeEmptyDirs="true">
+            <fileset dir="${basedir}/build/workspace" />
+        </delete>
+    </target>
+
+    <target name="prepare-workspace">
+        <mkdir dir="${basedir}/build/workspace/cache" />
+        <mkdir dir="${basedir}/build/workspace/tmp" />
+        <mkdir dir="${basedir}/build/workspace/log" />
+        <mkdir dir="${basedir}/build/workspace/files" />
+    </target>
+
+    <target name="prepare-config">
+        <copy file="${basedir}/test/config.ini.template" toFile="${basedir}/test/config.ini" filtering="true"
+                overwrite="true">
+            <filterset>
+                <filter token="db.user.name" value="${dbUserName}" />
+                <filter token="db.user.password" value="${dbUserPassword}" />
+                <filter token="db.admin.name" value="${dbAdminName}" />
+                <filter token="db.admin.password" value="${dbAdminPassword}" />
+                <filter token="db.name" value="${dbName}" />
+            </filterset>
+        </copy>
+    </target>
+
+    <target name="lint">
+        <apply executable="php" dir="${basedir}" failonerror="on" logerror="on">
+            <arg line="-l"/>
+            <fileset dir="${basedir}" followsymlinks="false">
+                <include name="**/*.php"/>
+                <modified />
+                <exclude name="vendor/**"/>
+            </fileset>
+        </apply>
+    </target>
+
+</project>
+

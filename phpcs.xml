@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ruleset name="OPUS 4 coding standard">
+    <rule ref="./vendor/laminas/laminas-coding-standard/src/LaminasCodingStandard/ruleset.xml" />
+    <file>src</file>
+    <file>test</file>
+
+    <!-- Loosening the Laminas coding style to allow our customary annotations. -->
+    <rule ref="SlevomatCodingStandard.Commenting.ForbiddenAnnotations">
+        <properties>
+            <property name="forbiddenAnnotations" type="array">
+                <element value="@api"/>
+                <element value="@created"/>
+                <element value="@subpackage"/>
+                <element value="@version"/>
+                <element value="@expectedException"/>
+                <element value="@expectedExceptionCode"/>
+                <element value="@expectedExceptionMessage"/>
+                <element value="@expectedExceptionMessageRegExp"/>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue">
+        <type>warning</type>
+    </rule>
+
+</ruleset>

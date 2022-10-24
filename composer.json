@@ -1,0 +1,55 @@
+{
+  "name": "opus4-repo/opus4-job",
+  "description": "OPUS 4 Job Library",
+  "license": "GPL-2.0+",
+  "type": "library",
+  "keywords": [
+    "opus4",
+    "import"
+  ],
+  "homepage": "https://www.opus-repository.org",
+  "require": {
+    "ext-json": "*",
+    "opus4-repo/opus4-common": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "6.*",
+    "laminas/laminas-coding-standard": "<2.3",
+    "phpmetrics/phpmetrics": "2.7.4",
+    "opus4-repo/framework": "dev-master"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Opus\\Job\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "OpusTest\\Job\\": "test/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "check": [
+      "@cs-check",
+      "@test"
+    ],
+    "check-full": [
+      "@prepare",
+      "@cs-report",
+      "@test-coverage"
+    ],
+    "prepare": "mkdir -p build",
+    "test": "phpunit --colors=always --log-junit build/phpunit.xml",
+    "test-coverage": "phpunit --log-junit build/phpunit.xml --colors=always --coverage-html build/coverage/ --coverage-clover build/coverage/clover.xml",
+    "cs-check": "phpcs -n",
+    "cs-report": "phpcs -n --report=checkstyle --report-file=build/checkstyle.xml",
+    "cs-fix": "phpcbf"
+  }
+}
