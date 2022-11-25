@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     strategy:
       matrix:
@@ -35,7 +35,7 @@ jobs:
         run: sudo systemctl start mysql.service
 
       - name: Prepare database
-        run: bash vendor/opus4-repo/framework/bin/prepare-database.sh --admin_pwd root --user_pwd root
+        run: bash vendor/bin/opus4db --adminpwd root --userpwd root --sqlpwd root
 
       - name: Prepare
         run: ant prepare-workspace prepare-config lint -DdbUserPassword=root -DdbAdminPassword=root && export APPLICATION_PATH=. && php vendor/opus4-repo/framework/db/createdb.php
