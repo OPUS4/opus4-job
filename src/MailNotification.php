@@ -36,6 +36,7 @@ use Opus\Common\Config;
 use Opus\Common\JobInterface;
 use Opus\Common\Mail\SendMail;
 use Opus\Common\Security\SecurityException;
+use Zend_Config;
 use Zend_Log;
 
 use function implode;
@@ -48,7 +49,11 @@ use function trim;
 class MailNotification extends AbstractWorker
 {
     const LABEL = 'opus-mail-publish-notification';
+
+    /** @var Zend_Config */
     private $config;
+
+    /** @var bool */
     private $lookupRecipients = true;
 
     /**
