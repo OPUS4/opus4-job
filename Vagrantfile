@@ -2,10 +2,10 @@
 # vi: set ft=ruby :
 
 $software = <<SCRIPT
-# Downgrade to PHP 7.1
+# Install PHP 8.1
 apt-add-repository -y ppa:ondrej/php
 apt-get -yq update
-apt-get -yq install php7.1
+apt-get -yq install php8.1
 
 # Install MYSQL
 debconf-set-selections <<< "mysql-server mysql-server/root_password password root"
@@ -13,10 +13,10 @@ debconf-set-selections <<< "mysql-server mysql-server/root_password_again passwo
 apt-get -yq install mysql-server
 
 # Install required PHP packages
-apt-get -yq install php7.1-curl
-apt-get -yq install php7.1-zip
-apt-get -yq install php7.1-dom
-apt-get -yq install php7.1-mysql
+apt-get -yq install php8.1-curl
+apt-get -yq install php8.1-zip
+apt-get -yq install php8.1-dom
+apt-get -yq install php8.1-mysql
 
 # Install required tools
 apt-get -yq install ant
@@ -30,7 +30,7 @@ bin/composer update
 SCRIPT
 
 $database = <<SCRIPT
-/vagrant/vendor/opus4-repo/framework/bin/prepare-database.sh --admin_pwd root --user_pwd root
+/vagrant/vendor/bin/opus4db --adminpwd root --userpwd root --sqlpwd root
 SCRIPT
 
 $opus = <<SCRIPT
@@ -59,7 +59,7 @@ echo "'composer cs-fix' to automatically fix basic style problems"
 SCRIPT
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.box = "bento/ubuntu-22.04"
 
   config.vm.provision "Install required software...", type: "shell", inline: $software
   config.vm.provision "Install Composer dependencies...", type: "shell", privileged: false, inline: $composer
