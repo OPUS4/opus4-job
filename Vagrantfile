@@ -33,11 +33,9 @@ $database = <<SCRIPT
 /vagrant/vendor/bin/opus4db --adminpwd root --userpwd root --sqlpwd root
 SCRIPT
 
-$opus = <<SCRIPT
+$workspace = <<SCRIPT
 cd /vagrant
-ant prepare-workspace prepare-config -DdbUserPassword=root -DdbAdminPassword=root
-export APPLICATION_PATH=/vagrant
-php vendor/opus4-repo/framework/db/createdb.php
+ant prepare-workspace
 SCRIPT
 
 $environment = <<SCRIPT
@@ -63,8 +61,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "Install required software...", type: "shell", inline: $software
   config.vm.provision "Install Composer dependencies...", type: "shell", privileged: false, inline: $composer
+  config.vm.provision "Prepare workspace...", type: "shell", privileged: false, inline: $workspace
   config.vm.provision "Create database...", type: "shell", inline: $database
-  config.vm.provision "Configure OPUS 4...", type: "shell", privileged: false, inline: $opus
   config.vm.provision "Setup environment...", type: "shell", inline: $environment
   config.vm.provision "Information", type: "shell", privileged: false, run: "always", inline: $help
 end
