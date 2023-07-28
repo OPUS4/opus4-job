@@ -9,6 +9,7 @@
   ],
   "homepage": "https://www.opus-repository.org",
   "require": {
+    "php": ">=7.1 <7.4",
     "ext-json": "*",
     "opus4-repo/opus4-common": "^4.8"
   },
