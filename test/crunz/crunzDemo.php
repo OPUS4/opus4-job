@@ -37,7 +37,7 @@
  * and DummyTask2 every 2 minutes or as configured in the ini.
  *
  * Before running this script, the dummtasks.ini has to be activated in tests/tests.ini
- * After that it can be started with: php vendor/opus4-repo/opus4-job/test/crunz/crunzTest.php
+ * After that it can be started with: php vendor/opus4-repo/opus4-job/test/crunz/crunzDemo.php
  *
  * TODO Should use the testing environment and use the dummy tasks in tests/support directory.
  * At the moment the production environment is still used.

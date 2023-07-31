@@ -68,7 +68,6 @@ class TaskManagerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->makeConfigurationModifiable();
         
         $this->adjustConfiguration(
             [
