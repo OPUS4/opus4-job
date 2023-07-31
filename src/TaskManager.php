@@ -33,8 +33,21 @@ namespace Opus\Job;
 
 use Crunz\Event;
 use Crunz\Schedule;
+use Exception;
 use Opus\Common\ConfigTrait;
 use Opus\Common\LoggingTrait;
+use ReflectionClass;
+use Zend_Config_Ini;
+
+use function array_filter;
+use function class_exists;
+use function filter_var;
+use function is_readable;
+
+use const FILTER_NULL_ON_FAILURE;
+use const FILTER_VALIDATE_BOOLEAN;
+use const PHP_BINARY;
+use const PHP_EOL;
 
 /**
  * Class to read configuration data for tasks
@@ -70,7 +83,7 @@ class TaskManager
             if (! is_readable($fileName)) {
                 $logger->err("Could not find or read task ini file: '$fileName'");
             } else {
-                $tasksConfig = new \Zend_Config_Ini($fileName);
+                $tasksConfig = new Zend_Config_Ini($fileName);
                 if ($tasksConfig === false) {
                     $logger->err("Could not parse task ini file: '$fileName'");
                 } else {
@@ -188,7 +201,7 @@ class TaskManager
             return false;
         }
 
-        $class = new \ReflectionClass($className);
+        $class = new ReflectionClass($className);
         if (! $class->implementsInterface(TaskInterface::class)) {
             $this->getLogger()->err(
                 'Task class does not implement interface: ' . TaskInterface::class
@@ -228,7 +241,7 @@ class TaskManager
                 $schedule
                     ->onError(function (Event $evt) use (&$error) {
                         $error .= $evt->getExpression() . ' ' . $evt->buildCommand() . PHP_EOL;
-                        throw new \Exception($error);
+                        throw new Exception($error);
                     });
             }
         } else {

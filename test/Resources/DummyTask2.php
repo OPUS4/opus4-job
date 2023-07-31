@@ -29,15 +29,17 @@
  * @license     http://www.gnu.org/licenses/gpl.html General Public License
  */
 
+namespace OpusTest\Resources;
+
 use Opus\Job\TaskInterface;
 
 /**
  * Dummy task for development purposes
  */
-class DummyTask1 implements TaskInterface
+class DummyTask2 implements TaskInterface
 {
     public function run()
     {
-        echo "DummyTask 1 running \n";
+        echo "DummyTask 2 running \n";
     }
 }

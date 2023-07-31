@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of OPUS. The software OPUS has been originally developed
  * at the University of Stuttgart with funding from the German Research Net,
@@ -50,7 +51,7 @@
 // Show the active tasks.
 echo passthru("vendor/bin/crunz schedule:list");
 
-for ($i=1; $i <= 10; $i++) {
+for ($i = 1; $i <= 10; $i++) {
     // Simulate the needed cron job run every minute
     if ($i > 1) {
         echo "Waiting for the next scheduler run ... \n";

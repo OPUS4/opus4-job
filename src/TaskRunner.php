@@ -33,6 +33,9 @@ namespace Opus\Job;
 
 use Opus\Common\LoggingTrait;
 
+use function method_exists;
+use function ucfirst;
+
 /**
  * This class is a helper class for scripts/task/task-runner.php to run the configured task classes
  *

@@ -29,10 +29,20 @@
  * @license     http://www.gnu.org/licenses/gpl.html General Public License
  */
 
+namespace OpusTest\Job\Task;
+
 use Opus\Common\Config;
 use Opus\Job\TaskConfig;
 use Opus\Job\TaskManager;
+use OpusTest\Resources\DummyTask1;
+use OpusTest\Resources\DummyTask2;
 use PHPUnit\Framework\TestCase;
+use Zend_Config;
+
+use function array_pop;
+use function call_user_func;
+use function count;
+use function is_callable;
 
 class TaskManagerTest extends TestCase
 {
@@ -68,13 +78,13 @@ class TaskManagerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        
+
         $this->adjustConfiguration(
             [
                 'cron' => [
                     'enabled'    => 'true',
                     'taskRunner' => 'scripts/tasks/task-runner.php',
-                    'configFile' => 'test/resources/taskmanagertest-tasks.ini',
+                    'configFile' => 'test/Resources/taskmanagertest-tasks.ini',
                 ],
             ]
         );
