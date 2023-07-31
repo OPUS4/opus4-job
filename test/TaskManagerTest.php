@@ -32,6 +32,7 @@
 use Opus\Common\Config;
 use Opus\Job\TaskConfig;
 use Opus\Job\TaskManager;
+use PHPUnit\Framework\TestCase;
 
 class TaskManagerTest extends TestCase
 {
