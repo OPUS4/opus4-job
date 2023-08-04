@@ -148,7 +148,7 @@ class TaskManagerTest extends TestCase
         $this->assertFalse($taskManager->isValidTaskClass('UnknownClass'));
     }
 
-    public function testTaskClassWithNotImplementingTaskInterface()
+    public function testTaskClassWithNotExtendingAbstractBaseClass()
     {
         $taskManager = new TaskManager();
         $this->assertFalse($taskManager->isValidTaskClass("UnknownClassName"));

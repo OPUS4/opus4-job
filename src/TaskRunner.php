@@ -77,6 +77,7 @@ class TaskRunner
                 $logger->info('Run "' . $taskName . '"');
 
                 try {
+                    $task->setLogger($logger);
                     if ($task->run() === 0) {
                         $logger->info('Execution of "' . $taskName . '" was successful.');
                     } else {

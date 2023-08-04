@@ -31,12 +31,12 @@
 
 namespace OpusTest\Resources;
 
-use Opus\Job\TaskInterface;
+use Opus\Job\TaskAbstract;
 
 /**
  * Dummy task for development purposes
  */
-class DummyTask2 implements TaskInterface
+class DummyTask2 extends TaskAbstract
 {
     public function run()
     {

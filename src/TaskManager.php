@@ -201,10 +201,12 @@ class TaskManager
             return false;
         }
 
-        $class = new ReflectionClass($className);
-        if (! $class->implementsInterface(TaskInterface::class)) {
+        $class       = new ReflectionClass($className);
+        $parentClass = $class->getParentClass();
+
+        if ($parentClass === false || $parentClass->getName() !== TaskAbstract::class) {
             $this->getLogger()->err(
-                'Task class does not implement interface: ' . TaskInterface::class
+                'Task class does not extend interface: ' . TaskAbstract::class
             );
 
             return false;

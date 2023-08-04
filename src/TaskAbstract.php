@@ -31,12 +31,15 @@
 
 namespace Opus\Job;
 
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
+
 /**
- * Basic process interface as required to define
+ * Base class for background tasks as required to define
  * tasks for job cron job
  *
  * There are two types of Tasks:
- * 1. Opus Tasks, described by this Interface.
+ * 1. Opus Tasks, described by this Class.
  * 2. Crunz Tasks used by the Crunz cronjob, expectesd in the task directory specified in crunz.yml.
  * In our case there is and will be only one Crunz task: scheduledTasks.php in which the Crunz scheduler runs
  * all the configured Opus tasks.
@@ -47,12 +50,37 @@ namespace Opus\Job;
  * TODO The runner class might be unnecessary and could eventually transformed e.g in a abstract class.
  * TODO An opus task could then inherit from it and start a worker directly.
  */
-interface TaskInterface
+abstract class TaskAbstract
 {
+    /** @var OutputInterface */
+    private $output;
+
     /**
      * Perform task.
      *
-     * @return mixed
+     * @return int
      */
-    public function run();
+    abstract public function run();
+
+    /**
+     * Sets the class instance for CLI output.
+     *
+     * @return OutputInterface
+     */
+    public function getOutput()
+    {
+        if ($this->output === null) {
+            $this->output = new ConsoleOutput();
+        }
+
+        return $this->output;
+    }
+
+    /**
+     * Gets the class instance for CLI output.
+     */
+    public function setOutput(OutputInterface $output)
+    {
+        $this->output = $output;
+    }
 }
