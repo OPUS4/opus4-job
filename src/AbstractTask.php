@@ -50,7 +50,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * TODO The runner class might be unnecessary and could eventually transformed e.g in a abstract class.
  * TODO An opus task could then inherit from it and start a worker directly.
  */
-abstract class TaskAbstract
+abstract class AbstractTask
 {
     /** @var OutputInterface */
     private $output;
