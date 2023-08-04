@@ -74,7 +74,7 @@ class TaskRunner
 
                 $this->getTaskLogger()->info('Run task: ' . $taskName);
 
-                if ($x = $task->run() === 0) {
+                if ($task->run() === 0) {
                     $this->getTaskLogger()->info('Execution of "' . $taskName . '" was successful.');
                 } else {
                     $this->getTaskLogger()->err('Execution of "' . $taskName . '" failed.');
@@ -99,10 +99,8 @@ class TaskRunner
     public function getTaskLogger()
     {
         if ($this->taskLog === null) {
-            $format        = '%timestamp% %priorityName%: %message%';
             $logService    = LogService::getInstance();
-            $this->taskLog = $logService->createLog('opus-task', Zend_Log::INFO, $format);
-            $this->taskLog->setLevel(null);
+            $this->taskLog = $logService->getLog('tasks');
         }
 
         return $this->taskLog;
