@@ -85,7 +85,6 @@ class TaskRunner
                 } catch (Exception $e) {
                     $logger->err('Execution of "' . $taskName . '" failed. Exception: ' . $e->getMessage());
                 }
-
             } else {
                 $logger->err(
                     'Execution of "' . $taskName . '" failed, invalid task class "' . $taskConfig->getClass() . '".'
