@@ -31,6 +31,7 @@
 
 namespace Opus\Job;
 
+use Opus\Common\LoggingTrait;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -52,6 +53,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 abstract class AbstractTask
 {
+    use LoggingTrait;
+
     /** @var OutputInterface */
     private $output;
 

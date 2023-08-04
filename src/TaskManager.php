@@ -204,9 +204,9 @@ class TaskManager
         $class       = new ReflectionClass($className);
         $parentClass = $class->getParentClass();
 
-        if ($parentClass === false || $parentClass->getName() !== TaskAbstract::class) {
+        if ($parentClass === false || $parentClass->getName() !== AbstractTask::class) {
             $this->getLogger()->err(
-                'Task class does not extend interface: ' . TaskAbstract::class
+                'Task class does not extend interface: ' . AbstractTask::class
             );
 
             return false;
