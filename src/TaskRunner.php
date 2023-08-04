@@ -31,8 +31,9 @@
 
 namespace Opus\Job;
 
-use Opus\Common\LoggingTrait;
+use Opus\Common\Log\LogService;
 
+use Zend_Log;
 use function method_exists;
 use function ucfirst;
 
@@ -44,8 +45,6 @@ use function ucfirst;
  */
 class TaskRunner
 {
-    use LoggingTrait;
-
     /**
      * Runs the task of the specified name (as received from the task runner script).
      *
@@ -73,12 +72,39 @@ class TaskRunner
                     }
                 }
 
-                $task->run();
+                $this->getTaskLogger()->info('Run task: '. $taskName);
+
+                if ($x = $task->run() === 0) {
+                    $this->getTaskLogger()->info('Execution of "' . $taskName . '" was successful.');
+                } else {
+                    $this->getTaskLogger()->err('Execution of "' . $taskName . '" failed.');
+                }
+            } else {
+                $this->getTaskLogger()->err(
+                    'Execution of "' . $taskName . '" failed, invalid task class "' . $taskConfig->getClass() .'".'
+                );
             }
         } else {
-            $this->getLogger()->err(
-                'No configuration found for task name: ' . $taskName
+            $this->getTaskLogger()->err(
+                'Task execution failed, no configuration found for "' . $taskName .'".'
             );
         }
+    }
+
+    /**
+     * Creates logger for task messages.
+     *
+     * @return Zend_Log
+     */
+    public function getTaskLogger()
+    {
+        if ($this->taskLog === null) {
+            $format        = '%timestamp% %priorityName%: %message%';
+            $logService    = LogService::getInstance();
+            $this->taskLog = $logService->createLog('opus-task', Zend_Log::INFO, $format);
+            $this->taskLog->setLevel(null);
+        }
+
+        return $this->taskLog;
     }
 }
