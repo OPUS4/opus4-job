@@ -31,6 +31,7 @@
 
 namespace Opus\Job;
 
+use Exception;
 use Opus\Common\Log\LogService;
 use Zend_Log;
 
@@ -55,6 +56,7 @@ class TaskRunner
     {
         $taskManager = new TaskManager();
         $taskConfig  = $taskManager->getTaskConfig($taskName);
+        $logger      = $this->getTaskLogger();
 
         // Run the opus task
         if ($taskConfig) {
@@ -72,20 +74,25 @@ class TaskRunner
                     }
                 }
 
-                $this->getTaskLogger()->info('Run task: ' . $taskName);
+                $logger->info('Run "' . $taskName . '"');
 
-                if ($task->run() === 0) {
-                    $this->getTaskLogger()->info('Execution of "' . $taskName . '" was successful.');
-                } else {
-                    $this->getTaskLogger()->err('Execution of "' . $taskName . '" failed.');
+                try {
+                    if ($task->run() === 0) {
+                        $logger->info('Execution of "' . $taskName . '" was successful.');
+                    } else {
+                        $logger->err('Execution of "' . $taskName . '" failed.');
+                    }
+                } catch (Exception $e) {
+                    $logger->err('Execution of "' . $taskName . '" failed. Exception: ' . $e->getMessage());
                 }
+
             } else {
-                $this->getTaskLogger()->err(
+                $logger->err(
                     'Execution of "' . $taskName . '" failed, invalid task class "' . $taskConfig->getClass() . '".'
                 );
             }
         } else {
-            $this->getTaskLogger()->err(
+            $logger->err(
                 'Task execution failed, no configuration found for "' . $taskName . '".'
             );
         }
