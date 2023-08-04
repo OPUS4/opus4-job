@@ -32,8 +32,8 @@
 namespace Opus\Job;
 
 use Opus\Common\Log\LogService;
-
 use Zend_Log;
+
 use function method_exists;
 use function ucfirst;
 
@@ -72,7 +72,7 @@ class TaskRunner
                     }
                 }
 
-                $this->getTaskLogger()->info('Run task: '. $taskName);
+                $this->getTaskLogger()->info('Run task: ' . $taskName);
 
                 if ($x = $task->run() === 0) {
                     $this->getTaskLogger()->info('Execution of "' . $taskName . '" was successful.');
@@ -81,12 +81,12 @@ class TaskRunner
                 }
             } else {
                 $this->getTaskLogger()->err(
-                    'Execution of "' . $taskName . '" failed, invalid task class "' . $taskConfig->getClass() .'".'
+                    'Execution of "' . $taskName . '" failed, invalid task class "' . $taskConfig->getClass() . '".'
                 );
             }
         } else {
             $this->getTaskLogger()->err(
-                'Task execution failed, no configuration found for "' . $taskName .'".'
+                'Task execution failed, no configuration found for "' . $taskName . '".'
             );
         }
     }
