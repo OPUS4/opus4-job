@@ -79,21 +79,21 @@ class TaskRunner
                 try {
                     $task->setLogger($logger);
                     if ($task->run() === 0) {
-                        $logger->info('Execution of "' . $taskName . '" was successful.');
+                        $logger->info('Run successful');
                     } else {
-                        $logger->err('Execution of "' . $taskName . '" failed.');
+                        $logger->err('Run failed');
                     }
                 } catch (Exception $e) {
-                    $logger->err('Execution of "' . $taskName . '" failed. Exception: ' . $e->getMessage());
+                    $logger->err('Run failed, Exception: ' . $e->getMessage());
                 }
             } else {
                 $logger->err(
-                    'Execution of "' . $taskName . '" failed, invalid task class "' . $taskConfig->getClass() . '".'
+                    'Run failed: invalid class "' . $taskConfig->getClass() . '".'
                 );
             }
         } else {
             $logger->err(
-                'Task execution failed, no configuration found for "' . $taskName . '".'
+                'Run failed, no configuration found.'
             );
         }
     }
