@@ -37,19 +37,21 @@
  * The default dummytask.ini defines 2 dummy tasks. DummyTask1 runs every minute
  * and DummyTask2 every 2 minutes or as configured in the ini.
  *
- * Before running this script, the dummtasks.ini has to be activated in tests/tests.ini
+ * Before running this script, the dummytasks.ini has to be activated in tests/tests.ini
  * After that it can be started with: php vendor/opus4-repo/opus4-job/test/crunz/crunzDemo.php
  *
  * TODO Should use the testing environment and use the dummy tasks in tests/support directory.
  * At the moment the production environment is still used.
  * The reason for this is that crunz:list calls the task script in the scripts directory
  * and scripts need their own bootstrapping. Which in this case always uses the production environment
- * As a workaround could be to configure the path to the dummytask.ini in the produktion appplication.ini
+ * As a workaround could be to configure the path to the dummytask.ini in the produktion application.ini
  * before running this script, but then the dummy task classes are not found.
  */
 
+$baseDir = dirname(dirname(__DIR__));
+
 // Show the active tasks.
-echo passthru("vendor/bin/crunz schedule:list");
+echo passthru("{$baseDir}/vendor/bin/crunz schedule:list");
 
 for ($i = 1; $i <= 10; $i++) {
     // Simulate the needed cron job run every minute
@@ -58,6 +60,6 @@ for ($i = 1; $i <= 10; $i++) {
         sleep(60);
     }
     echo "\nCycle: $i of 10 \n";
-    echo "Time:  " . date("H:i:s") . " - vendor/bin/crunz schedule:run \n";
-    echo passthru("vendor/bin/crunz schedule:run") . "\n";
+    echo "Time:  " . date("H:i:s") . " - {$baseDir}/vendor/bin/crunz schedule:run \n";
+    echo passthru("{$baseDir}/vendor/bin/crunz schedule:run") . "\n";
 }
