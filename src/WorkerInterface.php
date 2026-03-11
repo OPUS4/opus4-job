@@ -50,5 +50,5 @@ interface WorkerInterface
      *
      * @param Zend_Log $logger Logger instance.
      */
-    public function setLogger($logger);
+    public function setLogger($logger): self;
 }
