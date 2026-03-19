@@ -118,10 +118,10 @@ abstract class AbstractTask
     }
 
     /**
-     * @return bool true If test mode is supported and enabled
+     * @return bool true If test mode is enabled
      */
     public function isTestModeEnabled()
     {
-        return $this->testModeEnabled && $this->isTestModeSupported();
+        return $this->testModeEnabled;
     }
 }
