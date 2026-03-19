@@ -48,6 +48,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * or delegates its task to a worker.
  * A worker processes a specific type of task by working through a job queue.
  * A runner hands over the jobs to be done to the worker and executes the worker.
+ *
  * TODO The runner class might be unnecessary and could eventually transformed e.g in a abstract class.
  * TODO An opus task could then inherit from it and start a worker directly.
  */
@@ -57,6 +58,9 @@ abstract class AbstractTask
 
     /** @var OutputInterface */
     private $output;
+
+    /** @var bool Test mode switch */
+    private $testModeEnabled = false;
 
     /**
      * Perform task.
@@ -81,9 +85,43 @@ abstract class AbstractTask
 
     /**
      * Gets the class instance for CLI output.
+     *
+     * @return $this
      */
     public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
+        return $this;
+    }
+
+    /**
+     * Should return true if a Task class supports test mode.
+     *
+     * If the test mode is supported the Task class should not perform any
+     * operation when called, but log what would have happened normally.
+     *
+     * @return false
+     */
+    public function isTestModeSupported()
+    {
+        return false;
+    }
+
+    /**
+     * @param boolean $enabled
+     * @return $this
+     */
+    public function setTestModeEnabled($enabled)
+    {
+        $this->testModeEnabled = $enabled;
+        return $this;
+    }
+
+    /**
+     * @return bool true If test mode is enabled
+     */
+    public function isTestModeEnabled()
+    {
+        return $this->testModeEnabled;
     }
 }
