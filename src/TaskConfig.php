@@ -53,6 +53,9 @@ class TaskConfig
     /** @var bool */
     protected $preventOverlapping;
 
+    /** @var bool */
+    protected $testModeEnabled = false;
+
     /** @var array */
     protected $options;
 
@@ -161,6 +164,17 @@ class TaskConfig
     public function setOptions($options)
     {
         $this->options = $options;
+        return $this;
+    }
+
+    public function isTestModeEnabled(): bool
+    {
+        return $this->testModeEnabled;
+    }
+
+    public function setTestModeEnabled(bool $testModeEnabled): self
+    {
+        $this->testModeEnabled = $testModeEnabled;
         return $this;
     }
 }

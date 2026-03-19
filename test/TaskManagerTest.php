@@ -118,6 +118,7 @@ class TaskManagerTest extends TestCase
             ->setSchedule('*/2 * * * *')
             ->setClass(DummyTask2::class)
             ->setPreventOverlapping(false)
+            ->setTestModeEnabled(true)
             ->setOptions([]);
 
         $this->assertEquals($taskConfig, $taskConfigurations['testTask2']);
