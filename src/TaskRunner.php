@@ -74,7 +74,14 @@ class TaskRunner
                     }
                 }
 
-                $logger->info('Run "' . $taskName . '"');
+                if ($task->isTestModeEnabled() || $taskManager->isTestModeEnabled()) {
+                    $logger->info("Run \"{$taskName}\" (TEST MODE)");
+                    if (! $task->isTestModeSupported()) {
+                        return;
+                    }
+                } else {
+                    $logger->info('Run "' . $taskName . '"');
+                }
 
                 try {
                     $task->setLogger($logger);

@@ -287,4 +287,15 @@ class TaskManager
         return filter_var($config->cron->enabled, FILTER_VALIDATE_BOOLEAN) &&
             $this->getTaskRunnerScriptPath();
     }
+
+    public function isTestModeEnabled(): bool
+    {
+        $config = $this->getConfig();
+
+        if (isset($config->cron->testModeEnabled)) {
+            return filter_var($config->cron->testModeEnabled, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        return false;
+    }
 }
