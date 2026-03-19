@@ -158,9 +158,8 @@ class TaskManager
 
         $taskConfig->setName($name)
             ->setClass($config->class ?? '')
-            ->setSchedule(
-                $config->schedule ?? TaskConfig::SCHEDULE_DEFAULT
-            );
+            ->setSchedule($config->schedule ?? TaskConfig::SCHEDULE_DEFAULT)
+            ->setTestModeEnabled($config->testModeEnabled ?? false);
 
         if (
             isset($config->preventOverlapping) &&
