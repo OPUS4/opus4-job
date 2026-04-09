@@ -46,6 +46,9 @@ use function ucfirst;
  */
 class TaskRunner
 {
+    /** @var Zend_Log */
+    private $taskLog;
+
     /**
      * Runs the task of the specified name (as received from the task runner script).
      *
