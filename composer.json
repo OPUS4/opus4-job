@@ -11,7 +11,7 @@
   "require": {
     "php": ">=8.1",
     "ext-json": "*",
-    "opus4-repo/opus4-common": "^4.9",
+    "opus4-repo/opus4-common": "dev-master as 4.11",
     "crunzphp/crunz": "3.8.*"
   },
   "require-dev": {
