@@ -18,7 +18,7 @@
     "phpunit/phpunit": "10.5.*",
     "opus4-repo/codesniffer": "dev-laminas",
     "phpmetrics/phpmetrics": "2.7.4",
-    "opus4-repo/framework": "^4.9"
+    "opus4-repo/framework": "dev-master as 4.11"
   },
   "config": {
     "allow-plugins": {
